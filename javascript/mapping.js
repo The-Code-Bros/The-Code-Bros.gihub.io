@@ -7,6 +7,7 @@ var map = L.map('map').setView([29.8884, -97.9384], 14);
         maxZoom: 18,
         }).addTo(map);
 
+<<<<<<< HEAD
 
 
 
@@ -101,3 +102,42 @@ var midpoint = turf.midpoint(point1, point2);
    var lng = coord[1].split(')');
    myMidpoint.bindPopup( lat[1] + ", " + lng[0] ).openPopup ();
      });;
+=======
+//Script to implement turf.destination
+var point;
+var distance;
+var bearing;
+var options;
+var coordinate;
+
+var pt = {
+  type: 'Feature',
+  properties:{name: "San Marcos"},
+  geometry: {
+    type: 'Point',
+    coordinates: [-97.9384, 29.8884]
+  }
+};
+
+
+//var map = L.map('map').setView([29.8884, -97.9384], 14);
+
+function destinationPoint(){
+  point = turf.point([-97.9414, 29.8833]);
+  distance = 2;
+  bearing = 120;
+  options = {units: 'miles'};
+
+  coordinate = turf.destination(point, distance, bearing, options);
+
+  L.geoJSON(point).addTo(map);
+  L.geoJSON(coordinate).addTo(map);
+
+};
+
+var polygons = turf.randomPolygon(25, {bbox: [-180, -90, 180, 90]})
+L.geoJson(polygons, {color: "yellow"}).addTo(map);
+
+pt = turf.randomPoint(25, {bbox: [-180, -90, 180, 90]});
+L.geoJson(pt, {color: "green"}).addTo(map);
+>>>>>>> 0200f0d2719b5f7ce86629ca5d355c86a9fe4bd6
