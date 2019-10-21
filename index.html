@@ -10,11 +10,17 @@
         integrity= "sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
         crossorigin = "">
     </script>
+    <!--<script>
+      var destination = turf.destination(features);
+    </script>-->
 <link rel="stylesheet" href="CSS/mapping.css">
 </head>
 <body>
     <div id="map">
-     <script src = "javascript/mapping.js"></script>
+      <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+      <script src="C:/Users/User/node_modules/geojson/geojson.min.js"></script>
     </div>
+    <script src = "javascript/mapping.js"></script>
+    <script>destinationPoint();</script>
 </body>
 </html>
