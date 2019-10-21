@@ -14,7 +14,7 @@ add a slider bar to an online map:
 newSlider = L.control.slider(<Function> fn, <Control.Slider options> options);
 ```
 
-This [webmap] (https://www.timemaps.com/history/europe-1453ad/) is a good example of what we are trying to achieve.
+This [webmap](https://www.timemaps.com/history/europe-1453ad/) is a good example of what we are trying to achieve.
 
 #Click on the pencil read the code property#
 
