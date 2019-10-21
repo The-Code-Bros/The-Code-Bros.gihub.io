@@ -14,7 +14,17 @@ var bearing;
 var options;
 var coordinate;
 
-var map = L.map('map').setView([29.8884, -97.9384], 14);
+var pt = {
+  type: 'Feature',
+  properties:{name: "San Marcos"},
+  geometry: {
+    type: 'Point',
+    coordinates: [-97.9384, 29.8884]
+  }
+};
+
+
+//var map = L.map('map').setView([29.8884, -97.9384], 14);
 
 function destinationPoint(){
   point = turf.point([-97.9414, 29.8833]);
@@ -26,4 +36,11 @@ function destinationPoint(){
 
   L.geoJSON(point).addTo(map);
   L.geoJSON(coordinate).addTo(map);
+
 };
+
+var polygons = turf.randomPolygon(25, {bbox: [-180, -90, 180, 90]})
+L.geoJson(polygons, {color: "yellow"}).addTo(map);
+
+pt = turf.randomPoint(25, {bbox: [-180, -90, 180, 90]});
+L.geoJson(pt, {color: "green"}).addTo(map);
