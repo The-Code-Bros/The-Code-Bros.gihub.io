@@ -48,8 +48,8 @@
         // * time - the time of the event
 
         const template = {
-          title: "{place}",
-          content: "Magnitude {mag} {type} hit {place} on {time}."
+          title: "Title",
+          content: "Magnitude."
         };
 
         // The heatmap renderer assigns each pixel in the view with
@@ -81,7 +81,7 @@
 
         const layer = new CSVLayer({
           url: url,
-          title: "Prpoerty Crime within Austin {Aroson, Burglary of Residence, Theft}",
+          title: "Prpoerty Crime within Austin",
           copyright: "Austin police department",
           popupTemplate: template,
           renderer: renderer
