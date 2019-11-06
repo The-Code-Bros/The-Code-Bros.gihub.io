@@ -1,0 +1,39 @@
+#sidebar {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+#bottombar {
+  background-color: #333;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 160px;
+  height: 100px;
+  z-index: 1;
+}
+
+#footer {
+  color: white;
+  font-size: 16px;
+  bottom: 5px;
+  position: absolute;
+}
+
+#map {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  left: 160px;
+  bottom: 100px;
+  height: calc(100vh - 100px);
+  width: calc(100vw - 160px);
+  z-index: 10;
+}
