@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset = "utf-8">
+  <meta name = "viewport" content = "initial-scale = 1, maximum-scale = 1, user-scalable = no">
+  <title>Austin Income & Demographics</title>
+  <link rel="stylesheet" type="text/css" href="css/project_style.css">
+
+  <link rel = "stylesheet" href = "https://js.arcgis.com/4.13/esri/css/main.css">
+  <script src = "https://js.arcgis.com/4.13/"></script>
+  <script>
+    require([
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/layers/TileLayer",
+    "esri/layers/MapImageLayer",
+    "esri/layers/FeatureLayer",
+    "esri/widgets/Locate",
+    "esri/layers/GraphicsLayer",
+    "esri/tasks/QueryTask",
+    "esri/tasks/support/Query",
+    "dojo/_base/array",
+    "dojo/dom",
+    "dojo/on",
+    "dojo/domReady!"
+  ],
+  /*This function initially loads the ESRI "oceans" basemap into the webpage with a
+  college and university feature layer on top of the basemap.
+  The function immediately overlays the "oceans" basemap with the World_Terrain_Base
+  tileLayer, and it still displays the colleges point feature layer.*/
+  function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, Locate, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
+    /*A local variable called map is created with the basemap loaded as one of
+    its attributes. It calls on the Map module.*/
+    var map = new Map({
+      basemap: "oceans",
+    });
+
+    /*A local variable called view is created and calls on the MapView
+    module. Its container attribute is set to the name of the division
+    that occurs later in the body. The map attribute is set to the map variable
+    previously created. The zoom attribute is set to zoom level 4.
+    The center attribute is set to a unique center coordinate with
+    a latitude/longitude pair that corresponds to a point near the Texas
+    and Oklahoma border.*/
+    var view = new MapView({
+      container: "map",
+      map: map,
+      zoom: 11,
+      center: [-97.7431, 30.35]
+    });
+  });
+    </script>
+</head>
+
+<body>
+  <div id = "sidebar" class = "sidebar">
+  </div>
+  <div id = "bottombar" class = "bottombar">
+    <div id = "footer">
+      <p>The-Code-Bros</p>
+      <script>
+      // A new variable was intitiated called today which instantiates a date.
+      var today = new Date();
+      /* A new variable was initiated called year which returns the year of the
+      entered date which is today.*/
+      var year = today.getFullYear();
+      /* A line is written on the bottom of the webpage which says "Copyright",
+      followed by the copyright symbol, followed by the year returned by the
+      .getFullYear method embedded in the year variable.*/
+      document.write("Copyright &copy; " + year);
+      </script>
+    </div>
+  </div>
+  <div id = "map">
+
+  </div>
+</body>
+</html>
