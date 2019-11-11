@@ -8,28 +8,65 @@
       color: white;
       text-align: center;
     }
+
+    #body-container {
+      max-width: 1000px;
+      /*This declaration allows the webpage to automatically position the margin.*/
+      margin: auto;
+/*This declaration sets the height of the body container at 100 vertical
+height minus 4 pixels to account for the top and bottom border.*/
+      min-height: calc(100vh - 4px);
+/*This declaration sets a 2-pixel wide, solid, blue line border around the
+body container.*/
+      border: 2px solid black;
+/*This declaration applies a radius of 25 pixels to all four of the body
+container's corners and in effect makes them round.*/
+      border-radius: 25px;
+/*This declaration hides the overflow of the body container out of its
+border and in effect trims it to the border.*/
+      overflow: hidden;
+      position: relative;
+    }
+
+    #jordan-branum {
+      padding: 10px;
+    }
+
+    #sean-dunlap {
+      padding: 10px;
+    }
+
+    #bradley-johnson {
+      padding: 10px;
+    }
+
+    #bradley-text {
+      position: static;
+    }
   </style>
 </head>
 <body>
   <div id = "header">
     <h1>The-Code-Bros</h1>
   </div>
-  <div id = "Jordan Branum">
+  <div id = "body-container">
+  <div id = "jordan-branum">
     <h2>Jordan Branum</h2>
   </div>
-  <div id = "Sean Dunlap">
+  <div id = "sean-dunlap">
     <h2>Sean Dunlap</h2>
   </div>
-  <div id = "Bradley Johnson">
+  <div id = "bradley-johnson">
     <h2>Bradley Johnson</h2>
-    <p>Bradley received his Bachelor of Science degree in Geographic Information
+    <div id = "bradley-text">
+      <p>Bradley received his Bachelor of Science degree in Geographic Information
       Science from Texas State University in 2018. He is currently pursuing a
       master's degree in Geographic Information Science as a Master of Applied Geography.
       His directed research investigates the relationship between urban nighttime lights
       in astronaut photography from the International Space Station and impervious cover.</p>
-    <div id = "profile-picture">
-      <img src = images/profile-picture.jpg width = 350px height = 350px />
     </div>
+    <img src = images/profile-picture.jpg width = 350px height = 350px />
   </div>
+</div>
 </body>
 </html>

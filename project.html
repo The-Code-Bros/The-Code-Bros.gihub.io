@@ -4,7 +4,7 @@
   <meta charset = "utf-8">
   <meta name = "viewport" content = "initial-scale = 1, maximum-scale = 1, user-scalable = no">
   <title>Austin Income & Demographics</title>
-  <link rel="stylesheet" type="text/css" href="css/project_style.css">
+  <link rel="stylesheet" type="text/css" href="CSS/project_style.css">
 
   <link rel = "stylesheet" href = "https://js.arcgis.com/4.13/esri/css/main.css">
   <script src = "https://js.arcgis.com/4.13/"></script>
@@ -32,7 +32,7 @@
     /*A local variable called map is created with the basemap loaded as one of
     its attributes. It calls on the Map module.*/
     var map = new Map({
-      basemap: "oceans",
+      basemap: "dark-gray",
     });
 
     /*A local variable called view is created and calls on the MapView
@@ -54,15 +54,13 @@
 
 <body>
   <div id = "sidebar" class = "sidebar">
+    <!--<div id = "map-title">-->
+    <p>Spatial Patterns of Austin's Income and Demographic Characteristics</p>
+    <!--</div>-->
     <a href="https://the-code-bros.github.io/about_us.html" target="_blank">About Us</a>
   </div>
 
-  <div id = "map">
 
-  </div>
-  <div id = "map-title">
-    <p>Spatial Patterns of Austin's Income and Demographic Characteristics</p>
-  </div>
 
   <div id = "bottombar" class = "bottombar">
     <div id = "footer">
@@ -80,5 +78,9 @@
       </script>
     </div>
   </div>
+
+  <div id = "map">
+  </div>
+
 </body>
 </html>
