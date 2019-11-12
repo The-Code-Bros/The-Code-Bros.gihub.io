@@ -32,7 +32,7 @@
     /*A local variable called map is created with the basemap loaded as one of
     its attributes. It calls on the Map module.*/
     var map = new Map({
-      basemap: "dark-gray",
+      basemap: "streets",
     });
 
     /*A local variable called view is created and calls on the MapView
@@ -53,18 +53,17 @@
 </head>
 
 <body>
-  <div id = "sidebar" class = "sidebar">
-    <!--<div id = "map-title">-->
-    <p>Spatial Patterns of Austin's Income and Demographic Characteristics</p>
-    <!--</div>-->
+  <div id = "sidebar">
+    <a href="https://the-code-bros.github.io/overview.html" target="_blank">Overview</a>
+    <br>
+    <a href="https://the-code-bros.github.io/data.html" target="_blank">Data</a>
+    <br>
     <a href="https://the-code-bros.github.io/about_us.html" target="_blank">About Us</a>
   </div>
 
-
-
   <div id = "bottombar" class = "bottombar">
+    <p>Spatial Patterns of Austin's Income and Demographic Characteristics</p>
     <div id = "footer">
-      <p>The-Code-Bros</p>
       <script>
       // A new variable was intitiated called today which instantiates a date.
       var today = new Date();
@@ -74,9 +73,10 @@
       /* A line is written on the bottom of the webpage which says "Copyright",
       followed by the copyright symbol, followed by the year returned by the
       .getFullYear method embedded in the year variable.*/
-      document.write("Copyright &copy; " + year);
+      document.write("Copyright &copy; " + year + " The-Code-Bros");
       </script>
     </div>
+
   </div>
 
   <div id = "map">

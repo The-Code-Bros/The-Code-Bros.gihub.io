@@ -1,6 +1,6 @@
-#sidebar a:link {
+#sidebar {
   height: 100%;
-  width: 160px;
+  width: 140px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -9,14 +9,20 @@
   overflow-x: hidden;
   padding-top: 20px;
   color: white;
-  text-align: center;
+  text-align: right;
   font-size: 20px;
 }
 
-a:visited{
-  text-align: center;
-  font-size: 20px;
+a:visited, a:link{
   color: white;
+  text-decoration: none;
+  font-family: Verdana;
+  line-height: 50px;
+  padding-right: 20px;
+}
+
+a:hover {
+  color: gray;
 }
 
 #bottombar {
@@ -24,36 +30,31 @@ a:visited{
   position: fixed;
   bottom: 0;
   width: 100%;
-  left: 160px;
+  left: 140px;
   height: 100px;
   z-index: 1;
+  color: white;
+  font-size: 30px;
+  text-align: left;
+  font-family: Verdana;
 }
 
 #footer {
   color: white;
-  font-size: 16px;
+  font-size: 12px;
   bottom: 5px;
+  left: 5px;
   position: absolute;
+  font-family: Verdana;
 }
 
 #map {
   position: absolute;
   padding: 0;
   margin: 0;
-  left: 160px;
+  left: 140px;
   bottom: 100px;
   height: calc(100vh - 100px);
-  width: calc(100vw - 160px);
+  width: calc(100vw - 140px);
   z-index: 10;
-}
-
-#map-title {
-  font-size: 30px;
-  text-align: left;
-  color: black;
-  z-index: 99;
-  position: absolute;
-  left: 250px;
-  top: 0px;
-  background-color: gray;
 }
