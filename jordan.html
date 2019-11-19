@@ -34,12 +34,14 @@
     <script>
       require([
         "esri/Map",
-        "esri/layers/CSVLayer",
+        "esri/layers/FeatureLayer",
         "esri/views/MapView",
         "esri/widgets/Legend"
-      ], function(Map, CSVLayer, MapView, Legend) {
-        const url = "https://The-Code-Bros.github.io/property_crime.csv";
-
+      ],
+  function(Map, FeatureLayer, MapView, Legend) {
+        var crime = new FeatureLayer({
+          url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D"
+        });
         // Paste the url into a browser's address bar to download and view the attributes
         // in the CSV file. These attributes include:
         // * mag - magnitude
@@ -49,7 +51,7 @@
 
         const template = {
           title: "Title",
-          content: "Magnitude."
+          content: "Number of Crimes."
         };
 
         // The heatmap renderer assigns each pixel in the view with
@@ -57,9 +59,9 @@
         // to the maxPixel intensity is used to assign a color
         // from the continuous color ramp in the colorStops property
 
-        const renderer = {
+        var crimerenderer = {
           type: "heatmap",
-          field: "FID",
+          field: "FID", //get this to = user input date range 03-10
           colorStops: [
             { color: "rgba(63, 40, 102, 0)", ratio: 0 },
             { color: "#472b77", ratio: 0.083 },
@@ -75,10 +77,11 @@
             { color: "#e0cf40", ratio: 0.913 },
             { color: "#ffff00", ratio: 1 }
           ],
-          maxPixelIntensity: 25,
-          minPixelIntensity: 0
+          maxPixelIntensity: 0,
+          minPixelIntensity: 0,
         };
 
+/*
         const layer = new CSVLayer({
           url: url,
           title: "Prpoerty Crime within Austin",
@@ -86,16 +89,16 @@
           popupTemplate: template,
           renderer: renderer
         });
-
+*/
         const map = new Map({
           basemap: "gray",
-          layers: [layer]
+          layers: [crime]
         });
 
         const view = new MapView({
           container: "viewDiv",
-          center: [-138, 30],
-          zoom: 3,
+          center: [-97.58, 30],
+          zoom: 11,
           map: map
         });
 
