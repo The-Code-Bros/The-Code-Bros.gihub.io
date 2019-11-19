@@ -1,7 +1,113 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
+  <style>
+    #header {
+      background-color: #333;
+      width: calc(100vw - 140px);
+      color: white;
+      text-align: center;
+      top: 0px;
+      left: 140px;
+      position: fixed;
+      z-index: 99;
+      font: Verdana;
+    }
+
+    #sidebar {
+      height: 100%;
+      width: 140px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      padding-top: 20px;
+      color: white;
+      text-align: right;
+      font-size: 20px;
+    }
+
+    a:visited, a:link{
+      color: white;
+      text-decoration: none;
+      font-family: Verdana;
+      line-height: 50px;
+      padding-right: 10px;
+    }
+
+    a:hover {
+      color: gray;
+    }
+
+
+    #body-container {
+      max-width: 1000px;
+      /*This declaration allows the webpage to automatically position the margin.*/
+      margin: auto;
+/*This declaration sets the height of the body container at 100 vertical
+height minus 4 pixels to account for the top and bottom border.*/
+      min-height: calc(100vh - 4px);
+/*This declaration sets a 2-pixel wide, solid, blue line border around the
+body container.*/
+      border: 2px solid black;
+/*This declaration applies a radius of 25 pixels to all four of the body
+container's corners and in effect makes them round.*/
+      border-radius: 25px;
+/*This declaration hides the overflow of the body container out of its
+border and in effect trims it to the border.*/
+      overflow: hidden;
+      position: relative;
+      top: 100px;
+      left: 100px;
+    }
+
+    #overview{
+      background-color: dimgray;
+    }
+
+    #footer {
+      color: black;
+      font-size: 12px;
+      bottom: 5px;
+      left: 150px;
+      position: fixed;
+      font-family: Verdana;
+    }
+  </style>
 </head>
 <body>
+  <div id = "sidebar">
+    <a href = "https://the-code-bros.github.io/project.html" target="_self">Back To Map</a>
+    <br>
+    <div id = "overview">
+      <a href>Overview</a>
+    </div>
+    <a href = "https://the-code-bros.github.io/data.html" target="_self">Data</a>
+    <br>
+    <a href = "https://the-code-bros.github.io/about_us.html" target="_self">About Us</a>
+  </div>
+
+  <div id = "header">
+    <h1>Web Map Overview</h1>
+  </div>
+
+  <div id = "body-container">
+  </div>
+
+  <div id = "footer">
+    <script>
+    // A new variable was intitiated called today which instantiates a date.
+    var today = new Date();
+    /* A new variable was initiated called year which returns the year of the
+    entered date which is today.*/
+    var year = today.getFullYear();
+    /* A line is written on the bottom of the webpage which says "Copyright",
+    followed by the copyright symbol, followed by the year returned by the
+    .getFullYear method embedded in the year variable.*/
+    document.write("Copyright &copy; " + year + " The-Code-Bros");
+    </script>
+  </div>
 </body>
 </html>
