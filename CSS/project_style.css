@@ -58,3 +58,11 @@ a:hover {
   width: calc(100vw - 140px);
   z-index: 10;
 }
+
+.esri-component {
+  height: 25px;
+}
+
+.esri-attribution__powered-by{
+  opacity: 0;
+}
