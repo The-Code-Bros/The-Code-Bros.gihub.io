@@ -3,14 +3,15 @@
 <head>
   <style>
     #header {
-      background-color: black;
+      background-color: #333;
       width: calc(100vw - 140px);
       color: white;
       text-align: center;
       top: 0px;
       left: 140px;
       position: fixed;
-      opacity: 1.0;
+      z-index: 99;
+      font: Verdana;
     }
 
     #sidebar {
@@ -72,6 +73,19 @@ border and in effect trims it to the border.*/
       padding-right: 50px;
       padding-left: 20px;
     }
+
+    #about-us {
+      background-color: dimgray;
+    }
+
+    #footer {
+      color: black;
+      font-size: 12px;
+      bottom: 5px;
+      left: 150px;
+      position: fixed;
+      font-family: Verdana;
+    }
   </style>
 </head>
 <body>
@@ -82,7 +96,9 @@ border and in effect trims it to the border.*/
     <br>
     <a href="https://the-code-bros.github.io/data.html" target="_self">Data</a>
     <br>
-    <a href="https://the-code-bros.github.io/about_us.html" target="_self">About Us</a>
+    <div id = "about-us">
+      <a href>About Us</a>
+    </div>
   </div>
 
   <div id = "header">
@@ -111,5 +127,19 @@ border and in effect trims it to the border.*/
         in astronaut photography from the International Space Station and impervious cover.</p>
     </div>
   </div>
+
+    <div id = "footer">
+      <script>
+      // A new variable was intitiated called today which instantiates a date.
+      var today = new Date();
+      /* A new variable was initiated called year which returns the year of the
+      entered date which is today.*/
+      var year = today.getFullYear();
+      /* A line is written on the bottom of the webpage which says "Copyright",
+      followed by the copyright symbol, followed by the year returned by the
+      .getFullYear method embedded in the year variable.*/
+      document.write("Copyright &copy; " + year + " The-Code-Bros");
+      </script>
+    </div>
 </body>
 </html>
