@@ -18,6 +18,7 @@
     "esri/widgets/Locate",
     "esri/widgets/TimeSlider",
     "esri/widgets/Fullscreen",
+    "esri/widgets/LayerList",
     "esri/layers/GraphicsLayer",
     "esri/tasks/QueryTask",
     "esri/tasks/support/Query",
@@ -30,7 +31,7 @@
   college and university feature layer on top of the basemap.
   The function immediately overlays the "oceans" basemap with the World_Terrain_Base
   tileLayer, and it still displays the colleges point feature layer.*/
-  function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, Locate, TimeSlider, Fullscreen, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
+  function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, Locate, TimeSlider, Fullscreen, LayerList, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
     /*A local variable called map is created with the basemap loaded as one of
     its attributes. It calls on the Map module.*/
     var map = new Map({
@@ -92,6 +93,14 @@
       view: view
     });
     view.ui.add(fullscreen, "top-left");
+
+    var layerList = new LayerList({
+        view: view
+    });
+    // Adds widget below other elements in the top left corner of the view
+    view.ui.add(layerList, {
+      position: "top-left"
+    });
   });
   </script>
 </head>
