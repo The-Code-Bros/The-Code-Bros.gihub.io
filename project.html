@@ -16,6 +16,8 @@
     "esri/layers/MapImageLayer",
     "esri/layers/FeatureLayer",
     "esri/widgets/Locate",
+    "esri/widgets/TimeSlider",
+    "esri/widgets/Fullscreen",
     "esri/layers/GraphicsLayer",
     "esri/tasks/QueryTask",
     "esri/tasks/support/Query",
@@ -28,7 +30,7 @@
   college and university feature layer on top of the basemap.
   The function immediately overlays the "oceans" basemap with the World_Terrain_Base
   tileLayer, and it still displays the colleges point feature layer.*/
-  function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, Locate, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
+  function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, Locate, TimeSlider, Fullscreen, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
     /*A local variable called map is created with the basemap loaded as one of
     its attributes. It calls on the Map module.*/
     var map = new Map({
@@ -48,8 +50,50 @@
       zoom: 11,
       center: [-97.7431, 30.35]
     });
+
+    // Adds new time slider into a variable named timeSlider that is contained
+    // in the time-slider div.
+    var timeSlider = new TimeSlider({
+      container: "time-slider",
+      view: view,
+      // show data at a specific time rather than within a range of times
+      mode: "instant",
+      fullTimeExtent: { // entire extent of the timeSlider
+        start: new Date(2010, 0, 1),
+        end: new Date(2019, 0, 1)
+      },
+      values:[ // location of timeSlider thumbs
+        new Date(2010, 0, 1),
+        new Date(2011, 1, 1),
+        new Date(2012, 1, 1),
+        new Date(2013, 1, 1),
+        new Date(2014, 1, 1),
+        new Date(2015, 1, 1),
+        new Date(2016, 1, 1),
+        new Date(2017, 1, 1),
+        new Date(2018, 1, 1),
+        new Date(2019, 1, 1)
+      ],
+      // Defines at what interval and units the slider will stop at thumb locations along slider bar.
+      stops: {
+        interval: {
+          value: 1,
+          unit: "years"
+        },
+        timeExtent: {
+          start: new Date(2010, 0, 1),
+          end: new Date(2019, 0, 1)
+        }
+      },
+    });
+    view.ui.add(timeSlider, "manual");
+
+    fullscreen = new Fullscreen({
+      view: view
+    });
+    view.ui.add(fullscreen, "top-left");
   });
-    </script>
+  </script>
 </head>
 
 <body>
@@ -76,7 +120,8 @@
       document.write("Copyright &copy; " + year + " The-Code-Bros");
       </script>
     </div>
-
+    <div id = "time-slider">
+    </div>
   </div>
 
   <div id = "map">
