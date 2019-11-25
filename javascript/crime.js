@@ -1,13 +1,4 @@
-require([
-    "esri/Map","esri/Basemap", "esri/views/MapView","esri/widgets/Home","esri/widgets/Compass","esri/layers/FeatureLayer",
-    "esri/widgets/Feature","esri/widgets/Search","esri/widgets/LayerList","esri/widgets/BasemapToggle",	"esri/widgets/Legend",
-    "esri/widgets/Expand","esri/widgets/Print","esri/layers/GraphicsLayer","esri/tasks/QueryTask","esri/tasks/support/Query",
-    "dojo/_base/array","dojo/dom","dojo/on","dojo/domReady!"
-  ],
-  function(
-    Map,Basemap,MapView,Home,Compass,FeatureLayer,Feature,Search,LayerList,BasemapToggle,Legend,Expand,Print, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on,
-  ){
-  //Create Crime Pop-up Template and Content
+//Create Crime Pop-up Template and Content
   var crimeTemplate = { // autocasts as new PopupTemplate()
         title: "Property Crime Rate in Austin, Texas",
         content: [{
@@ -63,18 +54,4 @@ renderer: heatmapRenderer,
 opacity: 0.8,
 view: view,
 popupTemplate: crimeTemplate
-});
-
-// Create the Map and add the featureLayer defined above
-var map = new Map({
-basemap: "streets",
-layers: [crimeLayer1]
-});
-
-// Create the MapView
-var view = new MapView({
-container: "viewDiv",
-map: map,
-center: [-97.748403, 30.317977],
-zoom: 11
 });
