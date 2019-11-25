@@ -40,14 +40,9 @@
       ],
   function(Map, FeatureLayer, MapView, Legend) {
         var crime = new FeatureLayer({
+          //this is outputing the raw points to the map
           url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D"
         });
-        // Paste the url into a browser's address bar to download and view the attributes
-        // in the CSV file. These attributes include:
-        // * mag - magnitude
-        // * type - earthquake or other event such as nuclear test
-        // * place - location of the event
-        // * time - the time of the event
 
         const template = {
           title: "Title",
@@ -61,45 +56,53 @@
 
         var crimerenderer = {
           type: "heatmap",
-          field: "FID", //get this to = user input date range 03-10
-          colorStops: [
-            { color: "rgba(63, 40, 102, 0)", ratio: 0 },
-            { color: "#472b77", ratio: 0.083 },
-            { color: "#4e2d87", ratio: 0.166 },
-            { color: "#563098", ratio: 0.249 },
-            { color: "#5d32a8", ratio: 0.332 },
-            { color: "#6735be", ratio: 0.415 },
-            { color: "#7139d4", ratio: 0.498 },
-            { color: "#7b3ce9", ratio: 0.581 },
-            { color: "#853fff", ratio: 0.664 },
-            { color: "#a46fbf", ratio: 0.747 },
-            { color: "#c29f80", ratio: 0.83 },
-            { color: "#e0cf40", ratio: 0.913 },
-            { color: "#ffff00", ratio: 1 }
-          ],
-          maxPixelIntensity: 0,
-          minPixelIntensity: 0,
+          field: "FID", //name of the attribute feild used to weight the heatmap points
+          colors: ["rgba(0, 0, 255, 0)","rgb(0, 0, 255)","rgb(255, 0, 255)", "rgb(255, 0, 0)"],
+          blurRadius: 12,
+          maxPixelIntensity: 250,
+          minPixelIntensity: 10
         };
-
 /*
-        const layer = new CSVLayer({
-          url: url,
-          title: "Prpoerty Crime within Austin",
-          copyright: "Austin police department",
-          popupTemplate: template,
-          renderer: renderer
-        });
+var popupTemplate = new popupTemplate({
+  title: "Crime Heatmap",
+  content:[
+    {
+    type: "field",
+    fieldInfo: [
+      {
+        fieldName: "Highest Offense Description",
+        label: "Types of Property Crime",
+      }
+    ]
+  }
+]
+});
 */
+        var crime1 = new FeatureLayer({
+          url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D",
+          outFields: ["*"],
+          opacity: 0.8,
+          renderer: crimerenderer,
+          /*popupTemplate: popupTemplate*/
+        });
+
         const map = new Map({
           basemap: "gray",
-          layers: [crime]
+          layers: [crime, crime1]
         });
 
         const view = new MapView({
           container: "viewDiv",
           center: [-97.58, 30],
           zoom: 11,
-          map: map
+          map: map,
+          popup: {
+            dockEnabled: true,
+            dockOptions: {
+              buttonEnabled: false,
+              breakpoint: false
+            }
+          }
         });
 
         view.ui.add(

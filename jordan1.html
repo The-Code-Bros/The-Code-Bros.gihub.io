@@ -71,16 +71,16 @@
         var view = new MapView({
           container: "viewDiv",
           map: map,
-          center: [-122.812, 45.474],
-          zoom: 12
+          center: [-97.58, 30],
+          zoom: 11
         });
 
         // initialize geoprocessor task
         var gpUrl =
-          "https://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
+          "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D";
 
         var gp = new Geoprocessor({
-          url: gpUrl, //url to my excel table
+          url: gpUrl,
           outSpatialReference: {
             wkid: 102100
           }
@@ -113,8 +113,8 @@
           var defQuery;
           // get dates and build definition expression
 
-          var startDate = "1998-01-01 00:00:00";
-          var endDate = "1998-05-31 00:00:00";
+          var startDate = "2010-01-01 00:00:00";
+          var endDate = "2010-12-31 00:00:00";
           var def = [];
           def.push(
             "(Date >= date '" +
@@ -184,9 +184,9 @@
           <div id="info">
             <div style="padding-bottom:20px; padding-left:10px;">
               <br />
-              <label class="label">From: 01/01/1998</label><br />
+              <label class="label">From: 01/01/2010</label><br />
               <br /><br />
-              <label class="label">To: 05/31/1998</label><br />
+              <label class="label">To: 12/31/2010</label><br />
             </div>
             <div align="center">
               <br />
