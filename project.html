@@ -11,10 +11,13 @@
   <script>
     require([
     "esri/Map",
+    "esri/Basemap",
     "esri/views/MapView",
     "esri/layers/TileLayer",
     "esri/layers/MapImageLayer",
     "esri/layers/FeatureLayer",
+    "esri/widgets/Feature",
+    "esri/widgets/Legend",
     "esri/widgets/Locate",
     "esri/widgets/TimeSlider",
     "esri/widgets/Fullscreen",
@@ -31,11 +34,12 @@
   college and university feature layer on top of the basemap.
   The function immediately overlays the "oceans" basemap with the World_Terrain_Base
   tileLayer, and it still displays the colleges point feature layer.*/
-  function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, Locate, TimeSlider, Fullscreen, LayerList, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
+  function(Map, Basemap, MapView, TileLayer, MapImageLayer, FeatureLayer, Feature, Legend, Locate, TimeSlider, Fullscreen, LayerList, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
     /*A local variable called map is created with the basemap loaded as one of
     its attributes. It calls on the Map module.*/
     var map = new Map({
       basemap: "streets",
+      layers: [crimeLayer1]
     });
 
     /*A local variable called view is created and calls on the MapView
@@ -89,18 +93,60 @@
     });
     view.ui.add(timeSlider, "manual");
 
+    // Adds fullscreen widget into map.
     fullscreen = new Fullscreen({
       view: view
     });
     view.ui.add(fullscreen, "top-left");
 
+    // Adds a table of contents into map.
     var layerList = new LayerList({
         view: view
     });
-    // Adds widget below other elements in the top left corner of the view
     view.ui.add(layerList, {
       position: "top-left"
     });
+
+    /*This popupTemplate variable is declared. It defines what the popup for a
+    census block will be as a result of user selection. It includes the census block's
+    name, year of selection, population, average annual household income.............. */
+    var popupTemplate = {
+      title: "{NAME}",
+      fieldInfos: [{
+        fieldName: "", // needs field name
+        label: "Census Block",
+        format: {
+          places: 0,
+          digitSeperator: true
+        }
+      }, {
+        fieldName: "", // needs field name
+        label: "Year",
+        format: {
+          places: 0,
+          digitSeperator: true
+        }
+      }, {
+        fieldName: "", // needs field name
+        label: "Population",
+        format: {
+          places: 0,
+          digitSeperator: true
+        }
+      }, {
+        fieldName: "", // needs field name
+        label: "Average Annual Household Income",
+        format: {
+          places: 0,
+          digitSeperator: true
+        }
+      }],
+      content:
+        "<b>Census Block: " + "</b> {} " +
+        "<br><b>Year: </b> {}" +
+        "<br><b>Population: </b> {}" +
+        "<br><b>Average Annual Household Income: </b> {}"
+    };
   });
   </script>
 </head>
@@ -134,6 +180,7 @@
   </div>
 
   <div id = "map">
+    <script src = "javascript/crime.js"></script>
   </div>
 
 </body>
