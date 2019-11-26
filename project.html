@@ -109,7 +109,7 @@
       container: "map",
       map: map,
       zoom: 11,
-      center: [-97.7431, 30.35]
+      center: [-97.7431, 30.30]
     });
 
     // Adds new time slider into a variable named timeSlider that is contained
@@ -157,7 +157,17 @@
 
     // Adds a table of contents into map.
     var layerList = new LayerList({
-        view: view
+      view: view,
+      listItemCreatedFunction: function(event) {
+          const item = event.item;
+          if (item.layer.type != "group") {
+            // don't show legend twice
+            item.panel = {
+              content: "legend",
+              open: true
+            };
+          }
+        }
     });
     view.ui.add(layerList, {
       position: "top-left"
