@@ -1,6 +1,6 @@
 #sidebar {
   height: 100%;
-  width: 140px;
+  width: 150px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -30,7 +30,7 @@ a:hover {
   position: fixed;
   bottom: 0;
   width: 100%;
-  left: 140px;
+  left: 150px;
   height: 100px;
   z-index: 1;
   color: white;
@@ -52,17 +52,17 @@ a:hover {
   position: absolute;
   padding: 0;
   margin: 0;
-  left: 140px;
+  left: 150px;
   bottom: 100px;
   height: calc(100vh - 100px);
-  width: calc(100vw - 140px);
+  width: calc(100vw - 150px);
   z-index: 10;
 }
 
 #time-slider{
-  position: fixed;
-  right: 0px;
-  bottom: 0px;
+ top: 150px;
+ left: 17px;
+ z-index: 99;
 }
 
 .esri-attribution {
@@ -73,6 +73,27 @@ a:hover {
   opacity: 0;
 }
 
-.esri-time-slider__row{
+.esri-time-slider__time-extent, .esri-time-slider__row {
 
+}
+
+.esri-time-slider__slider {
+  /*position: fixed;
+  bottom: 0px;
+  right: 0px;*/
+}
+
+.esri-layer-list__list.esri-layer-list__list--root.esri-layer-list__list--independent, .esri-component.esri-layer-list.esri-widget.esri-widget--panel {
+  width: 0px;
+  background: black;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+}
+
+.esri-layer-list__item {
+  width: 150px;
+  position: fixed;
+  left: 0px;
+  top: 200px;
 }
