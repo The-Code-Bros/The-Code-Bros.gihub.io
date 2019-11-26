@@ -8,19 +8,19 @@
 
   <link rel = "stylesheet" href = "https://js.arcgis.com/4.13/esri/css/main.css">
   <script src = "https://js.arcgis.com/4.13/"></script>
-  <!--<script src = "javascript/crime.js"></script>-->
   <script>
     require([
     "esri/Map",
     "esri/Basemap",
     "esri/views/MapView",
-    "esri/layers/TileLayer",
     "esri/layers/FeatureLayer",
     "esri/widgets/Feature",
     "esri/widgets/Legend",
     "esri/widgets/TimeSlider",
     "esri/widgets/Fullscreen",
     "esri/widgets/LayerList",
+    "esri/widgets/Search",
+    "esri/widgets/Home",
     "esri/layers/GraphicsLayer",
     "esri/tasks/QueryTask",
     "esri/tasks/support/Query",
@@ -29,11 +29,8 @@
     "dojo/on",
     "dojo/domReady!"
   ],
-  /*This function initially loads the ESRI "oceans" basemap into the webpage with a
-  college and university feature layer on top of the basemap.
-  The function immediately overlays the "oceans" basemap with the World_Terrain_Base
-  tileLayer, and it still displays the colleges point feature layer.*/
-  function(Map, Basemap, MapView, TileLayer, FeatureLayer, Feature, Legend, TimeSlider, Fullscreen, LayerList, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
+
+  function(Map, Basemap, MapView, FeatureLayer, Feature, Legend, TimeSlider, Fullscreen, LayerList, Search, Home, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
 
     //Create Crime Pop-up Template and Content
     var crimeTemplate = { // autocasts as new PopupTemplate()
@@ -101,10 +98,10 @@
     /*A local variable called view is created and calls on the MapView
     module. Its container attribute is set to the name of the division
     that occurs later in the body. The map attribute is set to the map variable
-    previously created. The zoom attribute is set to zoom level 4.
+    previously created. The zoom attribute is set to zoom level 11.
     The center attribute is set to a unique center coordinate with
-    a latitude/longitude pair that corresponds to a point near the Texas
-    and Oklahoma border.*/
+    a latitude/longitude pair that corresponds to a point near the
+    middle of Austin. */
     var view = new MapView({
       container: "map",
       map: map,
@@ -173,6 +170,27 @@
       position: "top-left"
     });
 
+    // Add Search Widget
+    var searchWidget = new Search({
+      locationEnabled: true,
+      maxResults: 3,
+      maxSuggestions: 3,
+      minSuggestCharacters: 2,
+      suggestionsEnabled: true,
+      view: view,
+    });
+    view.ui.add(searchWidget, {
+      position: "top-right"
+    });
+
+    // Add Home Widget
+    var homeWidget = new Home({
+      view: view
+    });
+
+    // adds the home widget to the top left corner of the MapView
+    view.ui.add(homeWidget, "top-right");
+
     /*This popupTemplate variable is declared. It defines what the popup for a
     census block will be as a result of user selection. It includes the census block's
     name, year of selection, population, average annual household income.............. */
@@ -214,49 +232,49 @@
         "<br><b>Average Annual Household Income: </b> {}"
     };
 
-    // Make the DIV element draggable:
-dragElement(document.getElementById("time-slider"));
+    // Make the Time Slider element draggable:
+    dragElement(document.getElementById("time-slider"));
 
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
+    function dragElement(elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      if (document.getElementById(elmnt.id + "header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+      } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+      }
 
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
 
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
 
-  function closeDragElement() {
-    // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-}
+      function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
   });
   </script>
 </head>
