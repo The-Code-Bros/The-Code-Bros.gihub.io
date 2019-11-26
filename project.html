@@ -8,14 +8,16 @@
 
   <link rel = "stylesheet" href = "https://js.arcgis.com/4.13/esri/css/main.css">
   <script src = "https://js.arcgis.com/4.13/"></script>
+  <!--<script src = "javascript/crime.js"></script>-->
   <script>
     require([
     "esri/Map",
+    "esri/Basemap",
     "esri/views/MapView",
     "esri/layers/TileLayer",
-    "esri/layers/MapImageLayer",
     "esri/layers/FeatureLayer",
-    "esri/widgets/Locate",
+    "esri/widgets/Feature",
+    "esri/widgets/Legend",
     "esri/widgets/TimeSlider",
     "esri/widgets/Fullscreen",
     "esri/widgets/LayerList",
@@ -31,11 +33,69 @@
   college and university feature layer on top of the basemap.
   The function immediately overlays the "oceans" basemap with the World_Terrain_Base
   tileLayer, and it still displays the colleges point feature layer.*/
-  function(Map, MapView, TileLayer, MapImageLayer, FeatureLayer, Locate, TimeSlider, Fullscreen, LayerList, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
+  function(Map, Basemap, MapView, TileLayer, FeatureLayer, Feature, Legend, TimeSlider, Fullscreen, LayerList, GraphicsLayer, QueryTask, Query, arrayUtils, dom, on){
+
+    //Create Crime Pop-up Template and Content
+    var crimeTemplate = { // autocasts as new PopupTemplate()
+          title: "Property Crime Rate in Austin, Texas",
+          content: [{
+          // It is also possible to set the fieldInfos outside of the content
+          // directly in the popupTemplate. If no fieldInfos is specifically set
+          // in the content, it defaults to whatever may be set within the popupTemplate.
+          type: "fields",
+          fieldInfos: [{
+            fieldName: "Highest Offense Description",
+            label: "<b>Crime Type</b>",
+            visible: true
+          }, {
+            fieldName: "Occurred Date",
+            label: "<b>Date</b>",
+            visible: true,
+          }, {
+            fieldName: "Report Date Time",
+            label: "<b>Report Date</b>",
+            visible: true,
+          }, {
+            fieldName: "Census Tract",
+            label: "<b>Census Tracts</b>",
+            visible: true,
+         }]
+       }]
+      };
+
+      var heatmapRenderer = {
+        type: "heatmap",
+        colorStops: [
+          { color: "rgba(63, 40, 102, 0)", ratio: 0 },
+          { color: "#ffffb2", ratio: 0.1 },
+          { color: "#fed976", ratio: 0.2 },
+          { color: "#feb24c", ratio: 0.4 },
+          { color: "#fd8d3c", ratio: 0.6 },
+          { color: "#fc4e2a", ratio: 0.8 },
+          { color: "#e31a1c", ratio: 0.9 },
+          { color: "#b10026", ratio: 1 }
+        ],
+        minPixelIntensity: 0,
+        maxPixelIntensity: 1000
+      };
+
+      //Adding feature layers from service
+      var crimeLayer1 = new FeatureLayer({
+        url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D",
+        title: "Crime Heatmap",
+        outFields: ["*"],
+        visible: true,
+        renderer: heatmapRenderer,
+        opacity: 0.8,
+        view: view,
+        popupTemplate: crimeTemplate
+      });
+
     /*A local variable called map is created with the basemap loaded as one of
     its attributes. It calls on the Map module.*/
     var map = new Map({
       basemap: "streets",
+      layers: [crimeLayer1]
     });
 
     /*A local variable called view is created and calls on the MapView
@@ -89,18 +149,60 @@
     });
     view.ui.add(timeSlider, "manual");
 
+    // Adds fullscreen widget into map.
     fullscreen = new Fullscreen({
       view: view
     });
     view.ui.add(fullscreen, "top-left");
 
+    // Adds a table of contents into map.
     var layerList = new LayerList({
         view: view
     });
-    // Adds widget below other elements in the top left corner of the view
     view.ui.add(layerList, {
       position: "top-left"
     });
+
+    /*This popupTemplate variable is declared. It defines what the popup for a
+    census block will be as a result of user selection. It includes the census block's
+    name, year of selection, population, average annual household income.............. */
+    var popupTemplate = {
+      title: "{NAME}",
+      fieldInfos: [{
+        fieldName: "", // needs field name
+        label: "Census Block",
+        format: {
+          places: 0,
+          digitSeperator: true
+        }
+      }, {
+        fieldName: "", // needs field name
+        label: "Year",
+        format: {
+          places: 0,
+          digitSeperator: true
+        }
+      }, {
+        fieldName: "", // needs field name
+        label: "Population",
+        format: {
+          places: 0,
+          digitSeperator: true
+        }
+      }, {
+        fieldName: "", // needs field name
+        label: "Average Annual Household Income",
+        format: {
+          places: 0,
+          digitSeperator: true
+        }
+      }],
+      content:
+        "<b>Census Block: " + "</b> {} " +
+        "<br><b>Year: </b> {}" +
+        "<br><b>Population: </b> {}" +
+        "<br><b>Average Annual Household Income: </b> {}"
+    };
   });
   </script>
 </head>
@@ -134,6 +236,7 @@
   </div>
 
   <div id = "map">
+    <script src = "javascript/crime.js"></script>
   </div>
 
 </body>
