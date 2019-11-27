@@ -50,29 +50,7 @@
           url:
             "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D"
         });
-/*
-        const fields = [
-         new Field({
-           name: "FID",
-           alias:"FID",
-           type: "oid"
-         }), new Field({
-           name: "Highest_Offense_Description",
-           alias: "Types of Propery Crime",
-           type: "string"
-         }), new Field ({
-           name: "Occurred_Date",
-           alias: "Date",
-           type: "date"
-         })
-        ]
 
-const field = layer.fieldIndex.get("Occurred_Date");
-
-if (field) {
-  console.log(field.name);
-}
-*/
         // Austin Census Tract layer
         var countiesLayer = new FeatureLayer({
           url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/INCOMETRACTS/FeatureServer/0?token=oE-5bd2GE3x4xckKEKZeoHjE8tym84tL7clQ8tBjiklJYp8qXX-8SBJhQnqurtGAeHLQQvC2qqr7cc1KEVfIycbGg7ct6GAkLCAX5E8nxhg9I959I0zJqNUdQOXS8tk2gK12JvYQaoxbj1pgleq_A7HwUc9_k2AvyiBUNL_NWWMhHym976m5y2XWEqEYDyojgHcQSOKL9TQMT5KUBmgzIJ9Ff3TAr5R83hWfJX1hp_JcYKu9ZdqKWjqaLdZ8Olqt",
@@ -82,7 +60,7 @@ if (field) {
           // create a new popupTemplate for the layer
           popupTemplate: {
             // autocasts as new PopupTemplate()
-            title: "County of {NAME}",
+            title: "Tracts of {NAME}",
             content: queryCrime
           }
         });
