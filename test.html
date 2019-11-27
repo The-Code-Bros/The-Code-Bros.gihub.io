@@ -73,7 +73,7 @@ if (field) {
   console.log(field.name);
 }
 */
-        // USA counties layer
+        // Austin Census Tract layer
         var countiesLayer = new FeatureLayer({
           url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/INCOMETRACTS/FeatureServer/0?token=oE-5bd2GE3x4xckKEKZeoHjE8tym84tL7clQ8tBjiklJYp8qXX-8SBJhQnqurtGAeHLQQvC2qqr7cc1KEVfIycbGg7ct6GAkLCAX5E8nxhg9I959I0zJqNUdQOXS8tk2gK12JvYQaoxbj1pgleq_A7HwUc9_k2AvyiBUNL_NWWMhHym976m5y2XWEqEYDyojgHcQSOKL9TQMT5KUBmgzIJ9Ff3TAr5R83hWfJX1hp_JcYKu9ZdqKWjqaLdZ8Olqt",
           outFields: ["*"],
@@ -121,7 +121,7 @@ if (field) {
               return (
                 "<b>" +
                 (stats.numLevel_1) +
-                "</b> count of crime within Census Tract {NAME}. <br><br>" 
+                "</b> count of crime within Census Tract {NAME}. <br><br>"
               );
             });
         }
