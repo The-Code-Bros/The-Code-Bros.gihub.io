@@ -1,17 +1,14 @@
 # The-Code-Bros.github.io
 
-## Political Boundaries Throughout History
-This project will walk through the history of political boundaries in a certain region[s]
-(i.e. The states of the United States of America, European countries throughout the 19th Century).
+## Austin Income and Crime
+This project consists of an interactive web map of the city of Austin. Two layers, crime
+and income, are displayed in the web map. Income is shown within census blocks by year in
+the last decade. The census block layer is displayed as a choropleth map. The crime layer
+is a point layer from the Austin Police Department by year in the last decade. It is displayed
+as a heatmap using the ESRI heatmap renderer.
 
-## Slider bar
-We will utilize a slider bar, so that the user can scroll through the history of a
-time period and new polygons will appear. There is a Leaflet plug-in, Leaflet.Slider,
-that was created and maintained by EPP. It utilizes the following code template to
-add a slider bar to an online map:
+We have integrated a time slider so that when the user drags the slider to a certain year, that
+year will apply to the data layers. Event-driven pop-up windows have also been utilized
+so that when the user hovers over features in the data layers, they can gain more information.
 
-```
-newSlider = L.control.slider(<Function> fn, <Control.Slider options> options);
-```
-
-This [webmap](https://www.timemaps.com/history/europe-1453ad/) is a good example of what we are trying to achieve.
+![Web Map Screenshot](images/web_map_screenshot.png)
