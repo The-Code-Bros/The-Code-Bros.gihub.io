@@ -169,7 +169,7 @@
               title: "Block Group",
               content: "Income="
             },
-            opacity: .8
+            opacity: .6
           });
 
         var incometracts = new FeatureLayer ({
@@ -181,7 +181,7 @@
               title: "Tract Group",
               content: "Income"
             },
-            opacity: .8
+            opacity: .6
           });
 
 
@@ -240,7 +240,7 @@
         outFields: ["*"],
         visible: true,
         renderer: heatmapRenderer,
-        opacity: 0.8,
+        opacity: 0.7,
         view: view,
         popupTemplate: crimeTemplate
       });
@@ -248,7 +248,7 @@
     /*A local variable called map is created with the basemap loaded as one of
     its attributes. It calls on the Map module.*/
     var map = new Map({
-      basemap: "streets",
+      basemap: "satellite",
       layers: [incomeblocks, incometracts, crimeLayer1]
     });
 
@@ -347,47 +347,6 @@
 
     // adds the home widget to the top left corner of the MapView
     view.ui.add(homeWidget, "top-right");
-
-    /*This popupTemplate variable is declared. It defines what the popup for a
-    census block will be as a result of user selection. It includes the census block's
-    name, year of selection, population, average annual household income.............. */
-    var popupTemplate = {
-      title: "{NAME}",
-      fieldInfos: [{
-        fieldName: "", // needs field name
-        label: "Census Block",
-        format: {
-          places: 0,
-          digitSeperator: true
-        }
-      }, {
-        fieldName: "", // needs field name
-        label: "Year",
-        format: {
-          places: 0,
-          digitSeperator: true
-        }
-      }, {
-        fieldName: "", // needs field name
-        label: "Population",
-        format: {
-          places: 0,
-          digitSeperator: true
-        }
-      }, {
-        fieldName: "", // needs field name
-        label: "Average Annual Household Income",
-        format: {
-          places: 0,
-          digitSeperator: true
-        }
-      }],
-      content:
-        "<b>Census Block: " + "</b> {} " +
-        "<br><b>Year: </b> {}" +
-        "<br><b>Population: </b> {}" +
-        "<br><b>Average Annual Household Income: </b> {}"
-    };
 
     // Make the Time Slider element draggable:
     dragElement(document.getElementById("time-slider"));

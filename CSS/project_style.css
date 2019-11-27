@@ -1,6 +1,6 @@
 #sidebar {
   height: 100%;
-  width: 150px;
+  width: 160px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -30,7 +30,7 @@ a:hover {
   position: fixed;
   bottom: 0;
   width: 100%;
-  left: 150px;
+  left: 160px;
   height: 100px;
   z-index: 1;
   color: white;
@@ -52,10 +52,10 @@ a:hover {
   position: absolute;
   padding: 0;
   margin: 0;
-  left: 150px;
+  left: 160px;
   bottom: 100px;
   height: calc(100vh - 100px);
-  width: calc(100vw - 150px);
+  width: calc(100vw - 160px);
   z-index: 10;
 }
 
@@ -92,8 +92,8 @@ a:hover {
 }
 
 .esri-layer-list__item {
-  width: 150px;
+  width: 160px;
   position: fixed;
   left: 0px;
-  top: 200px;
+  top: 180px;
 }
