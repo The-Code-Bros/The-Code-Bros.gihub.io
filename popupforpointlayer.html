@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1,user-scalable=no"
+    />
+    <title>Multiple popup elements - 4.13</title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.13/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.13/"></script>
+
+    <style>
+      html,
+      body,
+      #mapDiv {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer"
+      ], function(Map, MapView, FeatureLayer) {
+        // setup the map
+        var map = new Map({
+          basemap: "hybrid"
+        });
+        var view = new MapView({
+          container: "mapDiv",
+          map: map,
+          center: [-97.431, 30.30],
+          zoom: 11,
+          // Since there are many elements, it is best to dock the popup so
+          // the elements display better rather than have to scroll through them all.
+          popup: {
+            dockEnabled: true,
+            dockOptions: {
+              buttonEnabled: false,
+              breakpoint: false
+            }
+          }
+        });
+
+        var featureLayer = new FeatureLayer({
+          url:
+            "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D",
+          popupTemplate: {
+            // autocasts as new PopupTemplate()
+            title: "Property Crimes",
+
+            // Set content elements in the order to display.
+            // The first element displayed here is the fieldInfos.
+            content: [
+              {
+                // It is also possible to set the fieldInfos outside of the content
+                // directly in the popupTemplate. If no fieldInfos is specifically set
+                // in the content, it defaults to whatever may be set within the popupTemplate.
+                type: "fields", // FieldsContentElement
+                fieldInfos: [
+                  {
+                    fieldName: "Highest_Offense_Description",
+                    visible: true,
+                    label: "Types of Crimes",
+                    format: {
+                      places: 0,
+                      digitSeparator: true
+                    }
+                  },
+                  {
+                    fieldName: "Address",
+                    visible: true,
+                    label: "Address"
+                  },
+                  {
+                    fieldName: "Census_Tract",
+                    visible: true,
+                    label: "Tract",
+                    format: {
+                      places: 2,
+                      digitSeparator: true
+                    }
+                  }
+                ]
+              },
+              {
+                // You can also set a descriptive text element. This element
+                // uses an attribute from the featurelayer which displays a
+                // sentence giving the total amount of trees value within a
+                // specified census block. Text elements can only be set within the content.
+                type: "text", // TextContentElement
+                text:
+                  "These are the types of crimes {Highest_Offense_Description} and {Address} and {Census_Tract}"
+              },
+            ]
+          },
+          outFields: ["*"]
+        });
+        map.add(featureLayer);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="mapDiv"></div>
+  </body>
+</html>
