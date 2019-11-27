@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1,user-scalable=no"
+    />
+    <title>PopupTemplate with promise - 4.13</title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.13/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.13/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/tasks/QueryTask",
+        "esri/Graphic",
+        "esri/tasks/support/Query",
+        "esri/tasks/support/StatisticDefinition",
+        "esri/Basemap"
+      ], function(
+        Map,
+        MapView,
+        FeatureLayer,
+        QueryTask,
+        Graphic,
+        Query,
+        StatisticDefinition,
+        Basemap
+      ) {
+        // Query electric charging stations that intersect a county that was clicked
+        var queryCrimecount = new QueryTask({
+          url:
+            "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D"
+        });
+/*
+        const fields = [
+         new Field({
+           name: "FID",
+           alias:"FID",
+           type: "oid"
+         }), new Field({
+           name: "Highest_Offense_Description",
+           alias: "Types of Propery Crime",
+           type: "string"
+         }), new Field ({
+           name: "Occurred_Date",
+           alias: "Date",
+           type: "date"
+         })
+        ]
+
+const field = layer.fieldIndex.get("Occurred_Date");
+
+if (field) {
+  console.log(field.name);
+}
+*/
+        // USA counties layer
+        var countiesLayer = new FeatureLayer({
+          url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/INCOMETRACTS/FeatureServer/0?token=oE-5bd2GE3x4xckKEKZeoHjE8tym84tL7clQ8tBjiklJYp8qXX-8SBJhQnqurtGAeHLQQvC2qqr7cc1KEVfIycbGg7ct6GAkLCAX5E8nxhg9I959I0zJqNUdQOXS8tk2gK12JvYQaoxbj1pgleq_A7HwUc9_k2AvyiBUNL_NWWMhHym976m5y2XWEqEYDyojgHcQSOKL9TQMT5KUBmgzIJ9Ff3TAr5R83hWfJX1hp_JcYKu9ZdqKWjqaLdZ8Olqt",
+          outFields: ["*"],
+          minScale: 0,
+          maxScale: 0,
+          // create a new popupTemplate for the layer
+          popupTemplate: {
+            // autocasts as new PopupTemplate()
+            title: "County of {NAME}",
+            content: queryCrime
+          }
+        });
+
+
+        /*****************************************************************
+        * Query total count of crimes that intersect the census tract
+        * that was clicked for statistics. Statistics query will return
+        * number of charging stations that intersect the county, and break
+        * down the total number by types of stations (level 1, 2, or 3).
+        * Results will be returned to popupTemplate's content.
+        /*****************************************************************/
+
+        function queryCrime(target) {
+          // count and types of electric charging stations that intersect the county
+          var countLevel1 = new StatisticDefinition({
+            statisticType: "count",
+            onStatisticField: "Highest_Offense_Description",
+            outStatisticFieldName: "numLevel_1"
+          });
+
+          var query = new Query({
+            geometry: target.graphic.geometry,
+            outFields: ["*"],
+            spatialRelationship: "intersects",
+            outStatistics: [countLevel1]
+          });
+
+          // execute the query task
+          return queryCrimecount
+            .execute(query)
+            .then(function(result) {
+              var stats = result.features[0].attributes;
+
+              // format the query result for the counties popupTemplate's content.
+              return (
+                "<b>" +
+                (stats.numLevel_1) +
+                "</b> count of crime within Census Tract {NAME}. <br><br>" 
+              );
+            });
+        }
+
+        var map = new Map({
+          basemap: new Basemap({
+            portalItem: {
+              // autocasts as new PortalItem()
+              id: "3582b744bba84668b52a16b0b6942544"
+            }
+          }),
+          layers: [countiesLayer]
+        });
+
+        // Create the MapView
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          zoom: 5,
+          center: [-107.3567, 37.7705]
+        });
+
+        view.popup.watch("selectedFeature", function(e) {
+          view.graphics.removeAll();
+          if (e && e.geometry) {
+            view.graphics.add(
+              new Graphic({
+                geometry: e.geometry,
+                symbol: {
+                  type: "simple-fill",
+                  style: "none",
+                  outline: {
+                    color: "#6600FF",
+                    width: 2
+                  }
+                }
+              })
+            );
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
