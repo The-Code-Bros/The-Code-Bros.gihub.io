@@ -126,10 +126,6 @@
             opacity: .8
           });
 
-
-
-
-
     //Create Crime Pop-up Template and Content
     var crimeTemplate = { // autocasts as new PopupTemplate()
           title: "Property Crime Rate in Austin, Texas",
@@ -200,7 +196,7 @@
     its attributes. It calls on the Map module.*/
     var map = new Map({
       basemap: "streets",
-      layers: [ incometracts, permits, crimeLayer1]
+      layers: [incometracts, permits, crimeLayer1]
     });
 
     /*A local variable called view is created and calls on the MapView
@@ -217,11 +213,8 @@
       center: [-97.7431, 30.30]
     });
 
-
-
     // Adds new time slider into a variable named timeSlider that is contained
     // in the time-slider div.
-
     var timeSlider = new TimeSlider({
       container: "time-slider",
       view: view,
@@ -263,7 +256,7 @@
     });
     view.ui.add(fullscreen, "top-left");
 
-    // Adds a table of contents into map.
+    // Adds a table of contents widget into map.
     var layerList = new LayerList({
       view: view,
       listItemCreatedFunction: function(event) {
@@ -298,8 +291,6 @@
     var homeWidget = new Home({
       view: view
     });
-
-    // adds the home widget to the top left corner of the MapView
     view.ui.add(homeWidget, "top-right");
 
     /*This popupTemplate variable is declared. It defines what the popup for a
@@ -342,6 +333,7 @@
         "<br><b>Population: </b> {}" +
         "<br><b>Average Annual Household Income: </b> {}"
     };
+
 
     // Make the Time Slider element draggable:
     dragElement(document.getElementById("time-slider"));
@@ -387,7 +379,7 @@
       }
     };
 
-  }); // END OF FUNCTION
+  });
 
 
   </script>
@@ -403,7 +395,7 @@
   </div>
 
   <div id = "bottombar" class = "bottombar">
-    <p>Spatial Patterns of Austin's Income and Demographic Characteristics</p>
+    <p>Spatial Patterns of Austin's Income and Crime Characteristics</p>
     <div id = "footer">
       <script>
       // A new variable was intitiated called today which instantiates a date.
