@@ -195,28 +195,21 @@ function(Map, Basemap, MapView, FeatureLayer, Feature, Legend, TimeSlider, Fulls
                   }
                 }, {
                   fieldName: "Field2", // needs field name
-                  label: "Average Annual Household Income",
+                  label: "Average Annual Household Income 2013",
                   format: {
                     places: 0,
                     digitSeperator: true
                   }
                 }, {
                   fieldName: "Field3", // needs field name
-                  label: "Average Annual Household Income",
-                  format: {
-                    places: 0,
-                    digitSeperator: true
-                  }
-                }, {
-                  fieldName: "Field4", // needs field name
-                  label: "Average Annual Household Income",
+                  label: "Average Annual Household Income 2014",
                   format: {
                     places: 0,
                     digitSeperator: true
                   }
                 }, {
                   fieldName: "Field5", // needs field name
-                  label: "Average Annual Household Income",
+                  label: "Average Annual Household Income 2015",
                   format: {
                     places: 0,
                     digitSeperator: true
@@ -486,10 +479,9 @@ function(Map, Basemap, MapView, FeatureLayer, Feature, Legend, TimeSlider, Fulls
 
                   // format the query result for the counties popupTemplate's content.
                   return (
-                    "<br><b>Average Annual Household Income: </b> {Field2}" +
-                    "<br><b>Average Annual Household Income: </b> {Field3}" +
-                    "<br><b>Average Annual Household Income: </b> {Field4}" +
-                    "<br><b>Average Annual Household Income: </b> {Field5}" +
+                    "<br><b>Average Annual Household Income 2013: </b> {Field2}" +
+                    "<br><b>Average Annual Household Income 2014: </b> {Field3}" +
+                    "<br><b>Average Annual Household Income 2015: </b> {Field5}" +
                     "<br><b>Total Crime Count (2010-2019): </b>" +
                     (stats.numLevel_1)
                   );
