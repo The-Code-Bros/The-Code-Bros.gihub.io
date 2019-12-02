@@ -122,6 +122,14 @@
                 visible: false,
                 opacity: 0.6,
                 title: "Crime Points",
+                renderer: {
+                  type: "simple",
+                  symbol: {
+                    type: "simple-marker",
+                    color: "yellow",
+                    size: 5
+                  }
+                },
                 popupTemplate: {
                   // autocasts as new PopupTemplate()
                   title: "Property Crimes",
