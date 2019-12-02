@@ -164,8 +164,9 @@
                       // specified census block. Text elements can only be set within the content.
                       type: "text", // TextContentElement
                       text:
-                        "These are the types of crimes {Highest_Offense_Description} and {Address} and {Census_Tract}"
+                        "The types of crimes {Highest_Offense_Description} and {Address} and {Census_Tract}"
                     },
+
                   ]
                 },
                 outFields: ["*"]
@@ -188,8 +189,6 @@
             },
             opacity: .8
           });
-
-// I don't think we need crime template any more any more any more 
 
     //Create Crime Pop-up Template and Content
     var crimeTemplate = { // autocasts as new PopupTemplate()
@@ -235,12 +234,28 @@
         maxPixelIntensity: 1000
       };
 
+      var heatmapRendererpermits = {
+        type: "heatmap",
+        colorStops: [
+          { color: "rgba(63, 40, 102, 0)", ratio: 0 },
+          { color: "#edf8e9", ratio: 0.1 },
+          { color: "#c7e9c0", ratio: 0.2 },
+          { color: "#a1d99b", ratio: 0.4 },
+          { color: "#74c476", ratio: 0.6 },
+          { color: "#41ad5d", ratio: 0.8 },
+          { color: "#238b45", ratio: 0.9 },
+          { color: "#005a32", ratio: 1 }
+        ],
+        minPixelIntensity: 0,
+        maxPixelIntensity: 1000
+      }
+
       var permits = new FeatureLayer ({
         url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/PERMITPOINTS_AUSITN/FeatureServer/0?token=KtVKY3pkFI_gaXE1b3vH0eQkMFJFc1V6OdDFv95-zBsoS2Tw0NT-T_T8JOo70smsZXUeVFBmQuDnaITFH8uAoUXWZZGDdW7dnNnNkyMtmyWK3SGDcriC4f0PvADiu0dmAXMTiHysKZqWBKHeNSyjJdhyd_jMx20xnedFbWTyhfqUhxX1dHiQVstKDjt5KM15D0tdE8-GZ4f394djmVJxog0v8sXeE4tQPeNpdobvf_rrQNgO01LzakR6lBaxZJPY",
         title: "New Construction Heatmap",
         outFields: ["*"],
         visible: true,
-        renderer: heatmapRenderer,
+        renderer: heatmapRendererpermits,
         opacity: 0.8,
         view: view
       });
