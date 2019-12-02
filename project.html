@@ -119,6 +119,8 @@
               var crimepoints = new FeatureLayer({
                 url:
                   "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D",
+                visible: false,
+                opacity: 0.6,  
                 popupTemplate: {
                   // autocasts as new PopupTemplate()
                   title: "Property Crimes",
@@ -187,7 +189,7 @@
               title: "Tracts of {NAME}",
               content: queryCrime
             },
-            opacity: .8
+            opacity: 0.6
           });
 
     //Create Crime Pop-up Template and Content
@@ -254,9 +256,9 @@
         url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/PERMITPOINTS_AUSITN/FeatureServer/0?token=KtVKY3pkFI_gaXE1b3vH0eQkMFJFc1V6OdDFv95-zBsoS2Tw0NT-T_T8JOo70smsZXUeVFBmQuDnaITFH8uAoUXWZZGDdW7dnNnNkyMtmyWK3SGDcriC4f0PvADiu0dmAXMTiHysKZqWBKHeNSyjJdhyd_jMx20xnedFbWTyhfqUhxX1dHiQVstKDjt5KM15D0tdE8-GZ4f394djmVJxog0v8sXeE4tQPeNpdobvf_rrQNgO01LzakR6lBaxZJPY",
         title: "New Construction Heatmap",
         outFields: ["*"],
-        visible: true,
+        visible: false,
         renderer: heatmapRendererpermits,
-        opacity: 0.8,
+        opacity: 0.6,
         view: view
       });
 
@@ -265,9 +267,9 @@
         url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D",
         title: "Crime Heatmap",
         outFields: ["*"],
-        visible: true,
+        visible: false,
         renderer: heatmapRenderer,
-        opacity: 0.8,
+        opacity: 0.6,
         view: view,
         popupTemplate: crimeTemplate
       });
@@ -275,8 +277,8 @@
     /*A local variable called map is created with the basemap loaded as one of
     its attributes. It calls on the Map module.*/
     var map = new Map({
-      basemap: "streets",
-      layers: [ crimepoints, incometracts, permits, crimeheatmap]
+      basemap: "satellite",
+      layers: [crimepoints, incometracts, permits, crimeheatmap]
     });
 
     /*A local variable called view is created and calls on the MapView
@@ -293,11 +295,8 @@
       center: [-97.7431, 30.30]
     });
 
-
-
     // Adds new time slider into a variable named timeSlider that is contained
     // in the time-slider div.
-
     var timeSlider = new TimeSlider({
       container: "time-slider",
       view: view,
