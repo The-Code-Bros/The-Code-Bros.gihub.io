@@ -526,8 +526,60 @@
         );
       }
     });
-  }); //end
 
+/*    // query for selection of crimes by year
+      var resultsLayer = new GraphicsLayer();
+      var qTask = new QueryTask({
+        url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/INCOMEBLOCKS_AUSTIN/FeatureServer/0?token=ldpw2fJrMgNWJ95fCH7TC45zhEz78T77kDsvIBkPJNvrg8zlVNzy7jBOTYGKA4jR8Zaw3kXJUOuHSmeaEYv1rC5az2hepkOOAqmI4e7RJpuv4pGcEnqvcltZ0PtAhKfhSzfroN9yL2WXW8PUeNCaJqnKkrAnchaGUd9C29kFgomRaWxCxLdGHkGD1LXtmSVRtkferOQtWh3eR1gkh-6vMT0hknmKZCqlic5R6hKwxdYcNDe2SnOtKjncVV12Ydt"
+      });
+
+      var params = new Query({
+        returnGeometry: true,
+        outFields: ["*"]
+    });
+
+    view.when(function() {
+      view.ui.add("optionsDiv", "bottom-right");
+      on(dom.byId("doBtn"), "click", doQuery);
+    });
+
+    var attributeName = dom.byId("attSelect");
+    var expressionSign = dom.byId("signSelect");
+    var value = dom.byId("valSelect");
+
+    function doQuery() {
+      resultsLayer.removeAll();
+      params.where = attributeName.value + expressionSign.value + value.value;
+      qTask.execute(params)
+        .then(getResults)
+        .catch(promiseRejected);
+    }
+
+    function getResults(response) {
+      var popResults = arrayUtils.map(response.features, function(
+        feature) {
+        feature.popupTemplate = popupTemplate;
+        return feature;
+    });
+
+    resultsLayer.addMany(popResults);
+    view.goTo(popResults).then(function() {
+      view.popup.open({
+        features: popResults,
+        featuresMenuOpen: true,
+        updateLocationEnabled: true
+      });
+    });
+
+    dom.byId("printResults").innerHTML = popResults.length + " results found!";
+    }
+
+    function promiseRejected(error) {
+      console.error("Promise rejected: ", error.message);
+    }*/
+
+
+  }); //end
   </script>
 </head>
 
@@ -561,6 +613,26 @@
     <div id = "time-slider">
     </div>
   </div>
+
+  <!--<div id="viewDiv">
+    <div class="esri-widget" id="optionsDiv">
+    <h2>Select crimes by year</h2>
+      <select class="esri-widget" id="attSelect">
+        <option value="Occurred_Date">Date</option>
+      </select>
+      <select class="esri-widget" id="signSelect">
+        <option value="="> equal to </option>
+      </select>
+      <select class="esri-widget" id="valSelect">
+        <option value="1/1/2010">1/1/2010</option>
+      </select>
+      <br>
+      <br>
+      <button class="esri-widget" id="doBtn">Do Query</button>
+      <br>
+      <p><span id="printResults"></span></p>
+  </div>
+</div>-->
 
 </body>
 </html>
