@@ -120,7 +120,8 @@
                 url:
                   "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/property_crime__AUSITN_GEOJSON/FeatureServer/0?token=a0RCfrWhHEkwUJ1QIyBIdP9PZ-OUGqKvZbjLtUxksQW-vKDPa3CBLWsaRoEKoRn3IvG5tx_GEET4UScGyZfvbt0phOSxgwYz85gaaC8xjSt_7YBgGAvv3Ut-zLbR63GgE7hrr1kXyw0910EUhGpJilF7bk5cHhPYL2IYWdMvueL6hvRVbAGYBglo4p-MGNxlQozwPGOaVB5SBwDfNPw328GJ8a9HFwoEv0n6Ieh_8FhFa2NeWAQ8WBK6oEB7RB_D",
                 visible: false,
-                opacity: 0.6,  
+                opacity: 0.6,
+                title: "Crime Points",
                 popupTemplate: {
                   // autocasts as new PopupTemplate()
                   title: "Property Crimes",
@@ -166,7 +167,7 @@
                       // specified census block. Text elements can only be set within the content.
                       type: "text", // TextContentElement
                       text:
-                        "The types of crimes {Highest_Offense_Description} and {Address} within {Census_Tract}"
+                        "{Highest_Offense_Description} at {Address} within Census Tract {Census_Tract}"
                     },
 
                   ]
@@ -184,11 +185,54 @@
           url: "https://services1.arcgis.com/M68M8H7oABBFs1Pf/arcgis/rest/services/INCOMETRACTS/FeatureServer/0?token=oE-5bd2GE3x4xckKEKZeoHjE8tym84tL7clQ8tBjiklJYp8qXX-8SBJhQnqurtGAeHLQQvC2qqr7cc1KEVfIycbGg7ct6GAkLCAX5E8nxhg9I959I0zJqNUdQOXS8tk2gK12JvYQaoxbj1pgleq_A7HwUc9_k2AvyiBUNL_NWWMhHym976m5y2XWEqEYDyojgHcQSOKL9TQMT5KUBmgzIJ9Ff3TAr5R83hWfJX1hp_JcYKu9ZdqKWjqaLdZ8Olqt",
           title: "Average Household Income",
             renderer: incometractrenderer,
-            popupTemplate: {
+            popupTemplate:     /*This popupTemplate variable is declared. It defines what the popup for a
+                census block will be as a result of user selection. It includes the census block's
+                name, year of selection, population, average annual household income.............. */
+                {
+                  fieldInfos: [{
+                    fieldName: "NAME", // needs field name
+                    label: "Census Tract",
+                    format: {
+                      places: 2,
+                      digitSeperator: true
+                    }
+                  }, {
+                    fieldName: "Field2", // needs field name
+                    label: "Average Annual Household Income",
+                    format: {
+                      places: 0,
+                      digitSeperator: true
+                    }
+                  }, {
+                    fieldName: "Field3", // needs field name
+                    label: "Average Annual Household Income",
+                    format: {
+                      places: 0,
+                      digitSeperator: true
+                    }
+                  }, {
+                    fieldName: "Field4", // needs field name
+                    label: "Average Annual Household Income",
+                    format: {
+                      places: 0,
+                      digitSeperator: true
+                    }
+                  }, {
+                    fieldName: "Field5", // needs field name
+                    label: "Average Annual Household Income",
+                    format: {
+                      places: 0,
+                      digitSeperator: true
+                    }
+                  }],
+                  title: "Census Tract " + "{NAME}",
+                  outFields: ["*"],
+                  content: queryCrime
+                },/*{
               // autocasts as new PopupTemplate()
-              title: "Tracts of {NAME}",
+              title: "Census Tract {NAME}",
               content: queryCrime
-            },
+            }*/
             opacity: 0.6
           });
 
@@ -377,47 +421,6 @@
     // adds the home widget to the top left corner of the MapView
     view.ui.add(homeWidget, "top-right");
 
-    /*This popupTemplate variable is declared. It defines what the popup for a
-    census block will be as a result of user selection. It includes the census block's
-    name, year of selection, population, average annual household income.............. */
-    var popupTemplate = {
-      title: "{NAME}",
-      fieldInfos: [{
-        fieldName: "", // needs field name
-        label: "Census Block",
-        format: {
-          places: 0,
-          digitSeperator: true
-        }
-      }, {
-        fieldName: "", // needs field name
-        label: "Year",
-        format: {
-          places: 0,
-          digitSeperator: true
-        }
-      }, {
-        fieldName: "", // needs field name
-        label: "Population",
-        format: {
-          places: 0,
-          digitSeperator: true
-        }
-      }, {
-        fieldName: "", // needs field name
-        label: "Average Annual Household Income",
-        format: {
-          places: 0,
-          digitSeperator: true
-        }
-      }],
-      content:
-        "<b>Census Block: " + "</b> {} " +
-        "<br><b>Year: </b> {}" +
-        "<br><b>Population: </b> {}" +
-        "<br><b>Average Annual Household Income: </b> {}"
-    };
-
     // Make the Time Slider element draggable:
     dragElement(document.getElementById("time-slider"));
 
@@ -486,9 +489,12 @@
 
                     // format the query result for the counties popupTemplate's content.
                     return (
-                      "<b>" +
-                      (stats.numLevel_1) +
-                      "</b> count of crime within Census Tract {NAME}. <br><br>"
+                      "<br><b>Average Annual Household Income: </b> {Field2}" +
+                      "<br><b>Average Annual Household Income: </b> {Field3}" +
+                      "<br><b>Average Annual Household Income: </b> {Field4}" +
+                      "<br><b>Average Annual Household Income: </b> {Field5}" +
+                      "<br><b>Total Crime Count (2010-2019): </b>" +
+                      (stats.numLevel_1)
                     );
                   });
             } //end of querycrime count function
@@ -513,9 +519,6 @@
       }
     });
   }); //end
-
-  //}); // END OF FUNCTION
-
 
   </script>
 </head>
