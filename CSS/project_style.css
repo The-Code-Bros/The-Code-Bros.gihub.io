@@ -66,21 +66,11 @@ a:hover {
 }
 
 .esri-attribution {
-  height: 25px;
+  height: 20px;
 }
 
 .esri-attribution__powered-by{
   opacity: 0;
-}
-
-.esri-time-slider__time-extent, .esri-time-slider__row {
-
-}
-
-.esri-time-slider__slider {
-  /*position: fixed;
-  bottom: 0px;
-  right: 0px;*/
 }
 
 .esri-layer-list__list.esri-layer-list__list--root.esri-layer-list__list--independent, .esri-component.esri-layer-list.esri-widget.esri-widget--panel {
